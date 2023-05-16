@@ -1,11 +1,11 @@
 ---
 lang-ref: home
 layout: home
-title: Template headline
+title: Galerucines of The World
 description: Lesser saw seas own have can’t kind Also to every own yielding there stars one itself lights seed yielding dominion lesser from lesser were divide be their spirit one behold a they’re grass called open.
-background: https://inaturalist-open-data.s3.amazonaws.com/photos/58912610/original.jpeg
+background: /assets/images/sample.png
 imageLicense: |
-  *Xylaria hypoxylon* (L.) Grev. Photo by Alexis via [iNaturalist](https://www.gbif.org/occurrence/2542961803)
+  *None for this image* But else you could add it here along with a [link perhaps](https://www.gbif.org/occurrence/2542961803)
 cta:
   - text: Start exploring
     href: /occurrence/search
