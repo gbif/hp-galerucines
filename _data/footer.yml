@@ -9,14 +9,14 @@ columns:
     #   href: http://example.com
     # - text: Name of project partner 2
     #   href: http://example.com
-      description:
-       This portal is a project of love by [Laura Rocha Prado](https://laura.rochaprado.com), kindly supported by [GBIF](https://www.gbif.org/).
+    description: |
+      This portal is a project of love by [Laura Rocha Prado](https://laura.rochaprado.com), kindly supported by [GBIF](https://www.gbif.org/).
 
   - name: Code
     description: | # Can be Markdown
       This project is open source.
       The source code is available on [GitHub](https://github.com/gbif/hp-galerucines).
-  
+
   - name: Contact
     description: | # Can be Markdown
       * [Email](mailto:laura@rochaprado.com)
@@ -32,8 +32,6 @@ columns:
   #  - text: link title 2
   #    href: http://example2.com
   #  connectIcons: true # optional - show social icons (defined in _config.yml)
-
-
 # Small print license statement to add at the bottom of the footer. Can be Markdown
 # Will be prefixed by "© {{ site.author }}" if defined in _config.yml
 # Will be postfixed by "Powered by GBIF"
