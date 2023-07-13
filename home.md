@@ -13,6 +13,11 @@ cta:
   - text: About
     href: /about
 permalink: /
+composition:
+  - type: heroImage
+  - data: home.stats
+    type: stats
+parallax: true
 ---
 
 Galerucines are by far the most diverse subfamily of leaf beetles (chrysomelids). Two main groups are included in the subfamily: Skeletonizing Leaf Beetles (tribe Galerucini) and Flea Beetles (tribe Alticini).
