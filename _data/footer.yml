@@ -4,22 +4,22 @@
 # Columns (the more you add, the narrower they will be)
 columns:
   - name: Partners
-    links:
-    - text: Name of project partner 1
-      href: http://example.com
-    - text: Name of project partner 2
-      href: http://example.com
+    # links:
+    # - text: Name of project partner 1
+    #   href: http://example.com
+    # - text: Name of project partner 2
+    #   href: http://example.com
+      description:
+       This portal is a project of love by [Laura Rocha Prado](https://laura.rochaprado.com), kindly supported by [GBIF](https://www.gbif.org/).
 
   - name: Code
     description: | # Can be Markdown
-      This project is open source. See `_data/footer.yml` to customize the footer.
+      This project is open source.
+      The source code is available on [GitHub](https://github.com/gbif/hp-galerucines).
   
   - name: Contact
     description: | # Can be Markdown
-      Social icons links defined in `_config.yml`
-      * Street name
-      * 1234 postal code
-      * Country
+      * [Email](mailto:laura@rochaprado.com)
     connectIcons: true
 
   # EXAMPLE
