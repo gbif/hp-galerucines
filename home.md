@@ -15,14 +15,8 @@ cta:
 permalink: /
 ---
 
-Edit `/home.md` to change the text.
+Galerucines are by far the most diverse subfamily of leaf beetles (chrysomelids). Two main groups are included in the subfamily: Skeletonizing Leaf Beetles (tribe Galerucini) and Flea Beetles (tribe Alticini).
 
-Lorem markdownum spatium limes indefessus neque _at_ orat aestuat, quicquam ne
-flavusque omnibus, virginis socerque sparsos vidimus eundem. Sustinet **ramo
-pontum ut** avus quamquam de trabes vestemque cruorem tremor.
+Galerucines are everywhere! Distributed world-wide, they have an incredible variety of shapes and colors, and some species are considered important agricultural pests.
 
-Viscera mercibus isdem hebetarat undas! Iubet ora ire unum telis adicit, si
-Telephus _valent_, instructo refers. Ille **est resque**, sic ruris erit ante
-profana detegeret. Et cogor tractus arboribus prensurum praesens memorantur
-neque inplet iussus temeraria merui **fas ecce** aethera dixit fieretque [plura
-tollebat altius](http://virgineusque.net/est.html).
+We want to assemble and annotate information about the biology, diversity and evolution of this group of leaf-beetles that, despite its incredible abundance, is not studied enough.
