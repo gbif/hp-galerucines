@@ -20,7 +20,7 @@ profana detegeret. Et cogor tractus arboribus prensurum praesens memorantur
 neque inplet iussus temeraria merui **fas ecce** aethera dixit fieretque [plura
 tollebat altius](http://virgineusque.net/est.html).
 
-<div class="overflow-auto" style="white-space: nowrap;" markdown="block">
+<div class="overflow-auto table is-narrow is-fullwidth is-hoverable" markdown="block">
   <table>
   {% assign sortedTribes = site.data.csv.20230726_ITIS-Galerucini-Alticini-genera-valid-ab-sorted | sort: "tribe" %}
 {% for row in sortedTribes %}
@@ -45,6 +45,7 @@ tollebat altius](http://virgineusque.net/est.html).
 
 ## List of Genera in Galerucinae according to ITIS (Galerucini+Alticini)
 
+<div>
 <ul>
 {% assign sortedGenera = site.data.csv.20230726_ITIS-Galerucini-Alticini-genera-valid-ab-sorted | sort: 'scientificName' %}
 {% for row in sortedGenera %}
@@ -52,6 +53,20 @@ tollebat altius](http://virgineusque.net/est.html).
   {{ row.scientificName }} - <a href="https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value={{row.taxonID}}" target=_blank>
     view in ITIS
   </a>
-  {% endfor %}
  </li>
- <ul>
+  {% endfor %}
+</ul>
+</div>
+
+## Table for Genera
+
+<div class="overflow-auto" style="white-space: nowrap;" markdown="block">
+  <table>
+  {% assign itis = site.data.csv.20230726_ITIS-Galerucini-Alticini-genera-valid-ab-sorted | sort: "tribe" %}
+  {% assign header = itis[0] %}
+  <tr>
+    <th>Scientific Name</th>
+    <th>ITIS Reference</th>
+  </tr>
+  </table>
+</div>
