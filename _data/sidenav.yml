@@ -1,0 +1,54 @@
+literature:
+  - content:
+      - title: Literature
+        path: /taxonomy/literature
+  - grouptitle: Alphabetical Index
+    content:
+      - title: A
+        path: /taxonomy/literature#A
+      - title: B
+        path: /taxonomy/literature#B
+      - title: C
+        path: /taxonomy/literature#C
+      - title: D
+        path: /taxonomy/literature#D
+      - title: E
+        path: /taxonomy/literature#E
+      - title: F
+        path: /taxonomy/literature#F
+      - title: G
+        path: /taxonomy/literature#G
+      - title: H
+        path: /taxonomy/literature#H
+      - title: I
+        path: /taxonomy/literature#I
+      - title: J
+        path: /taxonomy/literature#J
+      - title: K
+        path: /taxonomy/literature#K
+      - title: L
+        path: /taxonomy/literature#L
+      - title: M
+        path: /taxonomy/literature#M
+      - title: N
+        path: /taxonomy/literature#N
+      - title: O
+        path: /taxonomy/literature#O
+      - title: P
+        path: /taxonomy/literature#P
+      - title: R
+        path: /taxonomy/literature#R
+      - title: S
+        path: /taxonomy/literature#S
+      - title: T
+        path: /taxonomy/literature#T
+      - title: U
+        path: /taxonomy/literature#U
+      - title: V
+        path: /taxonomy/literature#V
+      - title: W
+        path: /taxonomy/literature#W
+      - title: Y
+        path: /taxonomy/literature#Y
+      - title: Z
+        path: /taxonomy/literature#Z
