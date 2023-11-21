@@ -62,7 +62,11 @@ toc: false
 <tr>
 <td class="has-text-centered">{{ item.Year }}</td>
 <td>{{ item.Authors }}</td>
+{% if item.Link != nil %}
 <td><a href="{{ item.Link }}" target="_blank">{{ item.Title | strip }}</a></td>
+{% else %}
+<td>{{ item.Title | strip }}</td>
+{% endif %}
 </tr>
 {% endif %}
 {% endif %}
