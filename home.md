@@ -3,7 +3,7 @@ lang-ref: home
 layout: home
 title: Galerucines of The World
 description: A growing collection of taxonomic resources for leaf-beetles included in the Galerucinae subfamily (Galerucini + Alticini).
-background: /assets/images/gernotkunz-inat.jpg
+background: /assets/images/inat_216955.jpg
 imageLicense: |
   gernotkunz, all rights reserved [from observation found on iNaturalist](https://www.inaturalist.org/observations/21695570)
 cta:
