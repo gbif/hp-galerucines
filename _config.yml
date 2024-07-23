@@ -20,11 +20,9 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Galerucines of The World # the title of your site should go here
-email: laura@rochaprado.com
+email: laura.rochaprado@dmns.org
 description: >- # this means to ignore newlines (until baseurl:)
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Global hub of information on the leaf beetles of the subfamily Galerucinae. Powered by GBIF and curated by taxonomic specialists.
 baseurl: '' # the subpath of your site, e.g. /blog
 url: 'https://galerucines.hp.gbif.org/' # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: laurarochaprado # if you have an account you want to link to. Else comment this line out
@@ -42,14 +40,14 @@ remote_theme: gbif/jekyll-hp-base-theme
 privacy:
   name: Your organisation name
   domain: your-domain.org
-  contactEmail: info@your-domain.org
-  helpdeskEmail: helpdesk@your-domain.org
+  contactEmail: laura.rochaprado@dmns.org
+  # helpdeskEmail: helpdesk@your-domain.org
 
 # The text for the terms can be changed by adding translations for 'terms', 'acceptTerms' and 'rejectTerms' in `/_data/translations.yml`.
 siteMeasurements:
   enable: false # When enabled there will be a popup asking the user for their consent. If they accept then the function "attachMeasurements" will be called. You can overwrite this function by adding a file `/_includes/js/measure.js` and replace the function.
   GA_ID: 'G-XXXXXXXX' # Your Google analytics ID. Sometimes they start with UA-XXXXX-X other times with G-XXXXXXXX depending on how you set it up
-  termsVersion: '2021-07-06' # A version number for your terms. If you change this, then the users will see the popup again asking them to confirm/reject anew.
+  termsVersion: '2024-07' # A version number for your terms. If you change this, then the users will see the popup again asking them to confirm/reject anew.
 
 algae:
   rootLang: en
