@@ -57,7 +57,9 @@ if (datasetKey) {
             let columns = row.split(',');
             // Matches only scientific name without authorship in spreadsheet
             if (columns[1] && columns[1].includes(jsonResponse.canonicalName)) {
-              hostPlantsArray.push(columns[0]);
+              // hostPlantsArray.push(columns[0]);
+              // also add to each plant the corresponding "COL taxon page" url
+              hostPlantsArray.push({ name: columns[0], url: columns[4] });
             }
           });
           let hostPlantsList = document.getElementById('host-plants-list');

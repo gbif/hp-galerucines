@@ -27,7 +27,7 @@ http://127.0.0.1:4000/hosts/?taxonKey=1851462
   </h1>
   <p>TaxonKey=${datasetKey}</p>
   <ul id="host-plants-list">
-  ${dataset.hostPlantsArray ? dataset.hostPlantsArray.map(plant => `<li>${plant}</li>`).join('') : ''}
+    ${dataset.hostPlantsArray ? dataset.hostPlantsArray.map(plant => `<li><i>${plant.name}</i> - <a href="${plant.url}">See in Catalog of Life</a></li>`).join('') : ''}
   </ul>
 `;
 </script>
@@ -35,4 +35,5 @@ http://127.0.0.1:4000/hosts/?taxonKey=1851462
 <script src="/assets/leaflet.js"></script>
 <script src="/assets/hosts.js"></script>
 
-    <!-- ${dataset.hostPlants.map(plant => `<li>${plant}</li>`).join('')} -->
+<!-- Next step: use GBIF search to add taxonKey values to csv -->
+<!-- [ ] add hostplant taxonKeys to gbif url to fetch occurrences -->
