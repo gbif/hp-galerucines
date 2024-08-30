@@ -11,3 +11,4 @@ vendor
 # For local development
 Gemfile
 Gemfile.lock
+*.lock
