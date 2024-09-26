@@ -26,10 +26,9 @@ http://127.0.0.1:4000/hosts/?taxonKey=1851462
     Host plants for <i>${dataset.canonicalName}</i> (${dataset.bracketAuthorship}, ${dataset.bracketYear})
   </h1>
   <p>TaxonKey=${datasetKey}</p>
-  <fieldset id="host-plants-list">
-    <legend>Select a host plant to visualize in the map:</legend>
-    ${dataset.hostPlantsArray ? dataset.hostPlantsArray.map(plant => `<div><input type="radio" id="${plant.taxonKey}" name="plant-layer" value="${plant.taxonKey}" ${plant.taxonKey ? '' : 'disabled'} /><label for="${plant.taxonKey}"><i>${plant.name}</i> - <a href="${plant.url}">See taxon profile in Catalog of Life</a></label></div>`).join('') : ''}
-  </fieldset>
+  <ul id="host-plants-list">
+    ${dataset.hostPlantsArray ? dataset.hostPlantsArray.map(plant => `<li><i>${plant.name}</i> - <a href="${plant.url}">See taxon profile in Catalog of Life</a></li>`).join('') : ''}
+  </ul>
 `;
 </script>
 
