@@ -116,8 +116,6 @@ const insectLayerOptions = {
   icon: '/assets/images/moth.png',
 };
 
-let gbifAttrib = '<a href="https://www.gbif.org">GBIF</a>';
-
 /**
  * Using Map API to get the insect density layer
  */
@@ -216,27 +214,69 @@ fetch(mothPoints)
 function createLayerGroup(hostPlantsArray) {
   let overlayMaps = {};
   let plantLayerGroup = L.layerGroup();
-  const colors = ['orange', 'blue', 'green', 'red', 'purple', 'yellow'];
-  let colorIndex = 0;
+
+  // Function to generate a random color
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 
   hostPlantsArray.forEach((hostPlant) => {
     if (hostPlant.taxonKey) {
-      let color = colors[colorIndex % colors.length];
-      colorIndex++;
-      let plantDensityUrl = `https://api.gbif.org/v2/map/occurrence/density/{z}/{x}/{y}@1x.png?srs=EPSG:3857&taxonKey=${hostPlant.taxonKey}&basisOfRecord=PRESERVED_SPECIMEN&bin=hex&hexPerTile=1270&style=${color}.marker`;
+      let color = getRandomColor();
+
+      let colorizeLayer = `
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        version='1.1'
+        width='100%'
+        height='100%'
+        style='float:left'
+      >
+        <defs>
+          <filter id='colorMask-${color}'>
+            <feFlood flood-color='${color}' result='flood' />
+            <feComposite in="SourceGraphic" in2="flood" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" />
+          </filter>
+        </defs>
+      </svg>
+      `;
+
+      let plantDensityUrl = `https://api.gbif.org/v2/map/occurrence/density/{z}/{x}/{y}@2x.png?srs=EPSG:3857&taxonKey=${hostPlant.taxonKey}&basisOfRecord=PRESERVED_SPECIMEN&bin=hex&hexPerTile=512&style=white.marker`;
       let plantDensityLayer = L.tileLayer(plantDensityUrl, {
         minZoom: 1,
         maxZoom: 30,
         zoomOffset: -1,
         tileSize: 512,
-        opacity: 0.5,
-        attribution: gbifAttrib,
+        opacity: 0.3,
+        attribution: osmAttrib,
       });
+      // add an svg overlay on top of the plantDensityLayer
+      let svgLayer = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'svg'
+      );
+      svgLayer.innerHTML = colorizeLayer;
+      // grab image created by plantDensityLayer and add the filter to it
+      plantDensityLayer.on('tileload', function (e) {
+        let img = e.tile;
+        img.style.filter = `url(#colorMask-${color})`;
+      });
+
       plantLayerGroup.addLayer(plantDensityLayer);
+      plantLayerGroup.addLayer(svgLayer);
+      // move the svgLayer to the map's overlay pane
+      map.getPanes().overlayPane.appendChild(svgLayer);
       overlayMaps[
         `<span style="display: inline-block; width: 12px; height: 12px; background-color: ${color}; margin-right: 5px;"></span>${hostPlant.name}`
       ] = plantDensityLayer;
     }
   });
   L.control.layers(null, overlayMaps).addTo(map);
+  // console.log each layer.options
+  // console.log(plantLayerGroup);
 }
