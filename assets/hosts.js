@@ -44,7 +44,8 @@ if (datasetKey) {
       // Find all rows where column "Gelechiidae species name" contains datasetKey.scientificName
       // Grab corresponding column "Host full name" and add to hostPlantsArray
       // Print hostPlantsArray as list elements inside of ul id=host-plants-list
-      fetch('/assets/Gelechiidae_HostPlants_06May2024.csv')
+      // fetch('/assets/Gelechiidae_HostPlants_06May2024.csv')
+      fetch('/assets/Gelechiidae_HostPlants_06May2024-with-taxonKey.csv')
         .then((response) => response.text())
         .then((text) => {
           let rows = text.split('\n');
@@ -59,10 +60,15 @@ if (datasetKey) {
             if (columns[1] && columns[1].includes(jsonResponse.canonicalName)) {
               // hostPlantsArray.push(columns[0]);
               // also add to each plant the corresponding "COL taxon page" url
-              hostPlantsArray.push({ name: columns[0], url: columns[4] });
+              hostPlantsArray.push({
+                name: columns[0],
+                url: columns[4],
+                taxonKey: columns[5],
+              });
             }
           });
-          let hostPlantsList = document.getElementById('host-plants-list');
+          // let hostPlantsList = document.getElementById('host-plants-list');
+          createLayerGroup(hostPlantsArray);
           console.dir({ ...jsonResponse, hostPlantsArray });
           datasetArticleElement.innerHTML = datasetTemplate({
             ...jsonResponse,
@@ -87,8 +93,6 @@ if (datasetKey) {
   alert('no such dataset found');
 }
 
-// datasetArticleElement.innerHTML = datasetTemplate(datasetKey);
-
 // /** Map */
 
 // // set up the map
@@ -102,7 +106,7 @@ let osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 let osm = new L.TileLayer(osmUrl, { attribution: osmAttrib });
 
 // // set the map view to a given center and zoom
-map.setView(new L.LatLng(-20, -50), 1);
+map.setView(new L.LatLng(15, -25), 1.5);
 map.addLayer(osm);
 
 // // set insect layer options
@@ -110,13 +114,6 @@ const insectLayerOptions = {
   style: 'fire.point',
   taxonKey: datasetKey,
   icon: '/assets/images/moth.png',
-};
-
-// set plants layer options (need to get the taxonKeys from spreadsheet)
-const plantLayerOptions = {
-  style: 'fire.point',
-  taxonKey: datasetKey,
-  icon: '/assets/images/plant.png',
 };
 
 let gbifAttrib = '<a href="https://www.gbif.org">GBIF</a>';
@@ -140,17 +137,19 @@ let gbifAttrib = '<a href="https://www.gbif.org">GBIF</a>';
 
 // map.addLayer(gbifOverlay);
 
+// for each plant in hostPlantsArray, get the name and
+
 // Creating moth icon
 let mothIcon = L.icon({
   iconUrl: insectLayerOptions.icon,
-  iconSize: [50], // size of the icon
+  iconSize: [15], // size of the icon
 });
 
-// Creating plant icon
-let plantIcon = L.icon({
-  iconUrl: '/assets/images/plant.png',
-  iconSize: [50], // size of the icon
-});
+// // Creating plant icon
+// let plantIcon = L.icon({
+//   iconUrl: '/assets/images/plant.png',
+//   iconSize: [50], // size of the icon
+// });
 
 // /**
 //  * Using Occurrence API to get "markers"
@@ -158,7 +157,7 @@ let plantIcon = L.icon({
 let mothPoints =
   'https://api.gbif.org/v1/occurrence/search?acceptedTaxonKey=' +
   insectLayerOptions.taxonKey +
-  '&limit=1000';
+  '&limit=10000';
 
 // // for every object inside results, create a marker (use decimalLatitude and decimalLongitude)
 fetch(mothPoints)
@@ -174,9 +173,70 @@ fetch(mothPoints)
       }
       let lat = results[i].decimalLatitude;
       let lng = results[i].decimalLongitude;
-      let marker = L.marker([lat, lng], { icon: mothIcon }).addTo(map);
+      let marker = L.marker([lat, lng], { icon: mothIcon, opacity: 0.5 }).addTo(
+        map
+      );
     }
   })
   .catch(function (err) {
     console.log(err);
   });
+
+// add an event listener to monitor the click event on the host-plants-list
+// document.addEventListener('click', (event) => {
+//   // if the radio button is clicked, console log the plant name of the selected radio
+//   if (event.target && event.target.type === 'radio') {
+//     console.log(event.target.value);
+//     // add the plant layer to the map
+//     // addPlantLayer(event.target.value);
+//   }
+// });
+
+// function that will use the value of the selected radio button to add a layer to the map
+// function addPlantLayer(taxonKey) {
+//   let plantDensityLayer = '';
+//   // remove the plant layer if it already exists
+//   if (plantDensityLayer) {
+//     map.removeLayer(plantDensityLayer);
+//   }
+
+//   let plantDensityUrl = `https://api.gbif.org/v2/map/occurrence/density/{z}/{x}/{y}@1x.png?sr=EPSG:3857&taxonKey=${taxonKey}&basisOfRecord=PRESERVED_SPECIMEN&style=greenHeat.point`;
+//   plantDensityLayer = L.tileLayer(plantDensityUrl, {
+//     minZoom: 1,
+//     maxZoom: 30,
+//     zoomOffset: -1,
+//     tileSize: 512,
+//     attribution: gbifAttrib,
+//   });
+
+//   map.addLayer(plantDensityLayer);
+// }
+
+// function that gets the hostPlantsArray and creates a L.layerGroup called plantLayerGroup that contains all the plantDensityLayers corresponding to each plant that has a taxonKey that is not null
+function createLayerGroup(hostPlantsArray) {
+  let overlayMaps = {};
+  let plantLayerGroup = L.layerGroup();
+  const colors = ['orange', 'blue', 'green', 'red', 'purple', 'yellow'];
+  let colorIndex = 0;
+
+  hostPlantsArray.forEach((hostPlant) => {
+    if (hostPlant.taxonKey) {
+      let color = colors[colorIndex % colors.length];
+      colorIndex++;
+      let plantDensityUrl = `https://api.gbif.org/v2/map/occurrence/density/{z}/{x}/{y}@1x.png?srs=EPSG:3857&taxonKey=${hostPlant.taxonKey}&basisOfRecord=PRESERVED_SPECIMEN&bin=hex&hexPerTile=1270&style=${color}.marker`;
+      let plantDensityLayer = L.tileLayer(plantDensityUrl, {
+        minZoom: 1,
+        maxZoom: 30,
+        zoomOffset: -1,
+        tileSize: 512,
+        opacity: 0.5,
+        attribution: gbifAttrib,
+      });
+      plantLayerGroup.addLayer(plantDensityLayer);
+      overlayMaps[
+        `<span style="display: inline-block; width: 12px; height: 12px; background-color: ${color}; margin-right: 5px;"></span>${hostPlant.name}`
+      ] = plantDensityLayer;
+    }
+  });
+  L.control.layers(null, overlayMaps).addTo(map);
+}
