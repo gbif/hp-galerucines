@@ -155,7 +155,7 @@ let mothIcon = L.icon({
 let mothPoints =
   'https://api.gbif.org/v1/occurrence/search?acceptedTaxonKey=' +
   insectLayerOptions.taxonKey +
-  '&limit=10000';
+  '&limit=1000';
 
 // // for every object inside results, create a marker (use decimalLatitude and decimalLongitude)
 fetch(mothPoints)
