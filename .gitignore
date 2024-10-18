@@ -7,3 +7,8 @@ vendor
 # Mac OS X
 .DS_Store
 
+
+# For local development
+Gemfile
+Gemfile.lock
+*.lock
