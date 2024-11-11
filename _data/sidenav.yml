@@ -52,3 +52,57 @@ literature:
         path: /taxonomy/literature#Y
       - title: Z
         path: /taxonomy/literature#Z
+hostplants:
+  - content:
+      - title: Host Plants by Plant
+        path: /hostplants/hostplants
+  - grouptitle: Alphabetical Index
+    content:
+      - title: A
+        path: /hostplants/hostplants#A
+      - title: B
+        path: /hostplants/hostplants#B
+      - title: C
+        path: /hostplants/hostplants#C
+      - title: D
+        path: /hostplants/hostplants#D
+      - title: E
+        path: /hostplants/hostplants#E
+      - title: F
+        path: /hostplants/hostplants#F
+      - title: G
+        path: /hostplants/hostplants#G
+      - title: H
+        path: /hostplants/hostplants#H
+      - title: I
+        path: /hostplants/hostplants#I
+      - title: J
+        path: /hostplants/hostplants#J
+      - title: K
+        path: /hostplants/hostplants#K
+      - title: L
+        path: /hostplants/hostplants#L
+      - title: M
+        path: /hostplants/hostplants#M
+      - title: N
+        path: /hostplants/hostplants#N
+      - title: O
+        path: /hostplants/hostplants#O
+      - title: P
+        path: /hostplants/hostplants#P
+      - title: R
+        path: /hostplants/hostplants#R
+      - title: S
+        path: /hostplants/hostplants#S
+      - title: T
+        path: /hostplants/hostplants#T
+      - title: U
+        path: /hostplants/hostplants#U
+      - title: V
+        path: /hostplants/hostplants#V
+      - title: W
+        path: /hostplants/hostplants#W
+      - title: Y
+        path: /hostplants/hostplants#Y
+      - title: Z
+        path: /hostplants/hostplants#Z

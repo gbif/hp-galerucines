@@ -52,7 +52,7 @@ if (datasetKey) {
           // skip the first row (header)
           rows.shift();
 
-          console.log(jsonResponse.scientificName);
+          // console.log(jsonResponse.scientificName);
 
           rows.forEach((row) => {
             let columns = row.split(',');
@@ -62,14 +62,14 @@ if (datasetKey) {
               // also add to each plant the corresponding "COL taxon page" url
               hostPlantsArray.push({
                 name: columns[0],
-                url: columns[4],
+                colUrl: columns[4],
                 taxonKey: columns[5],
               });
             }
           });
           // let hostPlantsList = document.getElementById('host-plants-list');
           createLayerGroup(hostPlantsArray);
-          console.dir({ ...jsonResponse, hostPlantsArray });
+          // console.dir({ ...jsonResponse, hostPlantsArray });
           datasetArticleElement.innerHTML = datasetTemplate({
             ...jsonResponse,
             hostPlantsArray,
@@ -140,7 +140,7 @@ const insectLayerOptions = {
 // Creating moth icon
 let mothIcon = L.icon({
   iconUrl: insectLayerOptions.icon,
-  iconSize: [15], // size of the icon
+  iconSize: [25], // size of the icon
 });
 
 // // Creating plant icon
@@ -155,7 +155,7 @@ let mothIcon = L.icon({
 let mothPoints =
   'https://api.gbif.org/v1/occurrence/search?acceptedTaxonKey=' +
   insectLayerOptions.taxonKey +
-  '&limit=1000';
+  '&limit=4000';
 
 // // for every object inside results, create a marker (use decimalLatitude and decimalLongitude)
 fetch(mothPoints)
@@ -225,11 +225,13 @@ function createLayerGroup(hostPlantsArray) {
     return color;
   }
 
-  hostPlantsArray.forEach((hostPlant) => {
-    if (hostPlant.taxonKey) {
-      let color = getRandomColor();
+  // skip adding the plant layer if the hostPlantsArray is empty
+  if (hostPlantsArray && hostPlantsArray.length > 0) {
+    hostPlantsArray.forEach((hostPlant) => {
+      if (hostPlant.taxonKey) {
+        let color = getRandomColor();
 
-      let colorizeLayer = `
+        let colorizeLayer = `
       <svg
         xmlns='http://www.w3.org/2000/svg'
         version='1.1'
@@ -246,36 +248,37 @@ function createLayerGroup(hostPlantsArray) {
       </svg>
       `;
 
-      let plantDensityUrl = `https://api.gbif.org/v2/map/occurrence/density/{z}/{x}/{y}@2x.png?srs=EPSG:3857&taxonKey=${hostPlant.taxonKey}&basisOfRecord=PRESERVED_SPECIMEN&bin=hex&hexPerTile=512&style=white.marker`;
-      let plantDensityLayer = L.tileLayer(plantDensityUrl, {
-        minZoom: 1,
-        maxZoom: 30,
-        zoomOffset: -1,
-        tileSize: 512,
-        opacity: 0.3,
-        attribution: osmAttrib,
-      });
-      // add an svg overlay on top of the plantDensityLayer
-      let svgLayer = document.createElementNS(
-        'http://www.w3.org/2000/svg',
-        'svg'
-      );
-      svgLayer.innerHTML = colorizeLayer;
-      // grab image created by plantDensityLayer and add the filter to it
-      plantDensityLayer.on('tileload', function (e) {
-        let img = e.tile;
-        img.style.filter = `url(#colorMask-${color})`;
-      });
+        let plantDensityUrl = `https://api.gbif.org/v2/map/occurrence/density/{z}/{x}/{y}@2x.png?srs=EPSG:3857&taxonKey=${hostPlant.taxonKey}&basisOfRecord=PRESERVED_SPECIMEN&bin=hex&hexPerTile=512&style=white.marker`;
+        let plantDensityLayer = L.tileLayer(plantDensityUrl, {
+          minZoom: 1,
+          maxZoom: 30,
+          zoomOffset: -1,
+          tileSize: 512,
+          opacity: 0.3,
+          attribution: osmAttrib,
+        });
+        // add an svg overlay on top of the plantDensityLayer
+        let svgLayer = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'svg'
+        );
+        svgLayer.innerHTML = colorizeLayer;
+        // grab image created by plantDensityLayer and add the filter to it
+        plantDensityLayer.on('tileload', function (e) {
+          let img = e.tile;
+          img.style.filter = `url(#colorMask-${color})`;
+        });
 
-      plantLayerGroup.addLayer(plantDensityLayer);
-      plantLayerGroup.addLayer(svgLayer);
-      // move the svgLayer to the map's overlay pane
-      map.getPanes().overlayPane.appendChild(svgLayer);
-      overlayMaps[
-        `<span style="display: inline-block; width: 12px; height: 12px; background-color: ${color}; margin-right: 5px;"></span>${hostPlant.name}`
-      ] = plantDensityLayer;
-    }
-  });
+        plantLayerGroup.addLayer(plantDensityLayer);
+        plantLayerGroup.addLayer(svgLayer);
+        // move the svgLayer to the map's overlay pane
+        map.getPanes().overlayPane.appendChild(svgLayer);
+        overlayMaps[
+          `<span style="display: inline-block; width: 12px; height: 12px; background-color: ${color}; margin-right: 5px;"></span>${hostPlant.name}`
+        ] = plantDensityLayer;
+      }
+    });
+  }
   L.control.layers(null, overlayMaps).addTo(map);
   // console.log each layer.options
   // console.log(plantLayerGroup);

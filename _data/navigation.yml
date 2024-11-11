@@ -6,6 +6,12 @@
   href: /occurrence/search
 - text: Gallery
   href: /occurrence/search/?view=GALLERY
+- text: Host Plants
+  menu: # Dropdown menu (one level deep only)
+    - text: By Plant
+      href: /hostplants/hostplants
+    - text: By Insect
+      href: /hostplants/hostsbymoth
 # - text: Example pages
 #   menu: # Dropdown menu (one level deep only)
 #   - text: Simple

@@ -4,7 +4,33 @@
 @import '../../leaflet.css';
 
 .insect-hosts-map {
+  h1 {
+    text-align: center;
+  }
+
   #insect-hosts-map {
     height: 500px;
+  }
+
+  .article {
+    max-width: 100% !important;
+  }
+
+  #before-map {
+    max-width: 80%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: center;
+  }
+}
+.wide-table {
+  .article {
+    max-width: 76% !important;
+  }
+  .pageNavbar {
+    flex: 0 0 180px !important;
+    text-align: center;
   }
 }
